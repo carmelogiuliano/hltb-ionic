@@ -1,16 +1,16 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>HowLongToBeat</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
 
-  <ion-input type="text" placeholder="Search..." [(ngModel)]="query"></ion-input>
-  <button ion-button block (click)="search()">Search</button>
+  <!-- <ion-input type="text" placeholder="Search..." [(ngModel)]="query"></ion-input>
+  <button ion-button block (click)="search()">Search</button> -->
+
+  <ion-searchbar (ionInput)="search($event)"></ion-searchbar>
 
   <div [innerHTML] = htmlResult></div>
-
-
 
 </ion-content>

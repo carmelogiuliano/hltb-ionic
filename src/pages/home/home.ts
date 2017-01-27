@@ -8,18 +8,19 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  query:string;
   htmlResult:string;
-  data:any;
 
   constructor(public navCtrl: NavController, public http: Http) {
-    this.data = {};
+
   }
 
 
-
-  search() {
-    var body = 'queryString=' + this.query;
+  search(ev) {
+    var query = ev.target.value;
+    if(query === undefined) {
+      query = "";
+    }
+    var body = 'queryString=' + query;
     var headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
@@ -30,9 +31,15 @@ export class HomePage {
         })
         .subscribe(data => {
           this.htmlResult = data["_body"];
+          this.htmlResult = replaceAll(this.htmlResult, "gameimages/", "https://howlongtobeat.com/gameimages/");
         });
 
+        
 
   }
 
+}
+
+function replaceAll(str, find, replace) {
+  return str.replace(new RegExp(find, 'g'), replace);
 }
