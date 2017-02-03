@@ -1,14 +1,26 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>HowLongToBeat</ion-title>
+  <ion-navbar no-border-bottom>
+     <ion-title>HowLongToBeat</ion-title>
   </ion-navbar>
+
+  <ion-toolbar no-border-top>
+    <ion-searchbar color="primary" animated=true (ionInput)="search($event)"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
+
 <ion-content>
+   <ion-list>
+      <ion-item *ngFor="let game of gameList">
+         <div id="title">{{game.title}}</div>
+         <img src={{game.imgUrl}} />
 
-  <ion-input type="text" placeholder="Search..." [(ngModel)]="query"></ion-input>
-  <button ion-button block (click)="search()">Search</button>
-
-  <div [innerHTML] = htmlResult></div>
+         <ul>
+            <li *ngFor="let duration of game['durations']">
+               <p>{{duration.range}} - {{duration.length}}</p>
+            </li>
+         </ul>
+      </ion-item>
+   </ion-list>
 
 </ion-content>

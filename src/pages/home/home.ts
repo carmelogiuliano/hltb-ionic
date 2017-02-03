@@ -8,14 +8,21 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  query:string;
+  //query:string;
+  totalResults:string;
+  gameList:any[];
 
   constructor(public navCtrl: NavController, public http: Http) {
-
+     this.gameList = [];
   }
 
-  search() {
-    var body = 'queryString=' + this.query;
+  search(ev) {
+    this.gameList = [];
+    var query = ev.target.value;
+    if(query === undefined) {
+      query = "";
+    }
+    var body = 'queryString=' + query;
     var headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
@@ -31,13 +38,12 @@ export class HomePage {
 
           var el = document.createElement('html');
           el.innerHTML = htmlStr;
+          this.totalResults = el.getElementsByTagName('h3')[0].textContent;
           var htmlData = el.getElementsByTagName('li');
-          var gameList = [];
 
           for(var i = 0; i < htmlData.length; i++) {
             var imgUrl = htmlData[i].getElementsByTagName('img')[0].src;
             var title = htmlData[i].getElementsByTagName('a')[0].title;
-            var durations = htmlData[i].getElementsByClassName('center');
             var durationData = htmlData[i].getElementsByClassName('search_list_details_block')[0].children;
 
             //debugger;
@@ -54,7 +60,7 @@ export class HomePage {
                });
             }
 
-            gameList.push(game);
+            this.gameList.push(game);
           }
 
           debugger;
