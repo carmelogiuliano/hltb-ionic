@@ -6,10 +6,8 @@
 
 <ion-content>
 
-  <!-- <ion-input type="text" placeholder="Search..." [(ngModel)]="query"></ion-input>
-  <button ion-button block (click)="search()">Search</button> -->
-
-  <ion-searchbar (ionInput)="search($event)"></ion-searchbar>
+  <ion-input type="text" placeholder="Search..." [(ngModel)]="query"></ion-input>
+  <button ion-button block (click)="search()">Search</button>
 
   <div [innerHTML] = htmlResult></div>
 
