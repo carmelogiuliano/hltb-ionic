@@ -1,15 +1,16 @@
 <ion-header>
-  <ion-navbar no-border-bottom>
-     <ion-title>HowLongToBeat</ion-title>
-  </ion-navbar>
-
-  <ion-toolbar no-border-top>
-    <ion-searchbar color="primary" animated=true (ionInput)="search($event)"></ion-searchbar>
-  </ion-toolbar>
+   <ion-navbar color="dark">
+      <ion-title>HowLongToBeat</ion-title>
+   </ion-navbar>
 </ion-header>
 
 
-<ion-content>
+<ion-content fullscreen="" shrink-header="">
+   <ion-toolbar color="dark">
+     <ion-searchbar animated=true (input)="search($event)"></ion-searchbar>
+   </ion-toolbar>
+
+
    <ion-list>
       <ion-item *ngFor="let game of gameList">
          <div id="title">{{game.title}}</div>
