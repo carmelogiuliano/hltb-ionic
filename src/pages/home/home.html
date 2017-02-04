@@ -2,26 +2,26 @@
    <ion-navbar color="dark">
       <ion-title>HowLongToBeat</ion-title>
    </ion-navbar>
+
+   <ion-toolbar color="dark">
+      <ion-searchbar animated=true (input)="search($event)"></ion-searchbar>
+   </ion-toolbar>
 </ion-header>
 
 
-<ion-content fullscreen="" shrink-header="">
-   <ion-toolbar color="dark">
-     <ion-searchbar animated=true (input)="search($event)"></ion-searchbar>
-   </ion-toolbar>
+<ion-content class="cards-bg" fullscreen shrink-header>
 
+   <ion-card *ngFor="let game of gameList">
+      <ion-row>
+         <ion-col>
+            <img src={{game.imgUrl}}>
+         </ion-col>
+         <ion-col width-67>
+            <h2>{{game.title}}</h2>
+            <p *ngFor="let duration of game['durations']">{{duration.range}} - {{duration.length}}</p>
+         </ion-col>
+      </ion-row>
+   </ion-card>
 
-   <ion-list>
-      <ion-item *ngFor="let game of gameList">
-         <div id="title">{{game.title}}</div>
-         <img src={{game.imgUrl}} />
-
-         <ul>
-            <li *ngFor="let duration of game['durations']">
-               <p>{{duration.range}} - {{duration.length}}</p>
-            </li>
-         </ul>
-      </ion-item>
-   </ion-list>
 
 </ion-content>
