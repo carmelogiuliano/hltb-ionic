@@ -13,11 +13,11 @@
 
    <ion-card *ngFor="let game of gameList">
       <ion-row>
-         <ion-col>
+         <ion-col class="col-img">
             <img src={{game.imgUrl}}>
          </ion-col>
          <ion-col width-67>
-            <h2>{{game.title}}</h2>
+            <div id="title">{{game.title}}</div>
             <p *ngFor="let duration of game['durations']">{{duration.range}} - {{duration.length}}</p>
          </ion-col>
       </ion-row>
