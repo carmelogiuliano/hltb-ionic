@@ -8,9 +8,9 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  //query:string;
-  totalResults:string;
+  root:Element;
   gameList:any[];
+  totalResults:string;
 
   constructor(public navCtrl: NavController, public http: Http) {
      this.gameList = [];
@@ -34,17 +34,20 @@ export class HomePage {
         .subscribe(data => {
           var htmlStr = data["_body"];
           htmlStr = replaceAll(htmlStr, "gameimages/", "https://howlongtobeat.com/gameimages/");
+          this.root = document.createElement('html');
+          this.root.innerHTML = htmlStr;
+
+          var totalResultsStr = this.root.getElementsByTagName('h3')[0].textContent; // "We found [number] games"
+          var endPos = totalResultsStr.split(' ', 3).join(' ').length;
+          this.totalResults = totalResultsStr.slice(9, endPos);
+          document.getElementById("total-results").hidden = false;
 
 
-          var el = document.createElement('html');
-          el.innerHTML = htmlStr;
-          this.totalResults = el.getElementsByTagName('h3')[0].textContent;
-          var htmlData = el.getElementsByTagName('li');
-
-          for(var i = 0; i < htmlData.length; i++) {
-            var imgUrl = htmlData[i].getElementsByTagName('img')[0].src;
-            var title = htmlData[i].getElementsByTagName('a')[0].title;
-            var durationData = htmlData[i].getElementsByClassName('search_list_details_block')[0].children;
+          var listData = this.root.getElementsByTagName('li');
+          for(var i = 0; i < listData.length; i++) {
+            var imgUrl = listData[i].getElementsByTagName('img')[0].src;
+            var title = listData[i].getElementsByTagName('a')[0].title;
+            var durationData = listData[i].getElementsByClassName('search_list_details_block')[0].children;
 
             //debugger;
 
@@ -63,7 +66,7 @@ export class HomePage {
             this.gameList.push(game);
           }
 
-          debugger;
+          //debugger;
         });
   }
 

@@ -11,6 +11,8 @@
 
 <ion-content class="cards-bg" fullscreen shrink-header>
 
+   <div id="total-results" hidden>{{totalResults}} games found</div>
+
    <ion-card *ngFor="let game of gameList">
       <ion-row>
          <ion-col class="col-img">
